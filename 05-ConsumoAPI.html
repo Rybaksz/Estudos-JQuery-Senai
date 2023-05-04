@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumo de API</title>
+    <style>
+
+        *{
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        main{
+
+            width: 100vw;
+            height: 100vh;
+            background-color: #CAFFB9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        article{
+
+            background-color: #AEF78E;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px #66A182;
+
+        }
+
+        input{
+
+            height: 26px;
+            margin-right: 10px;
+            padding-left: 10px;
+
+        }
+
+        #pesquisar{
+
+            background-color: #60e69e;
+            color: rgb(4, 7, 3);
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #AEF78E;
+            box-shadow: 2px 2px 10px #21560b;
+
+        }
+
+        table{
+
+            margin-top: 15px;
+
+        }
+
+       .ende{
+
+
+        color: rgb(3, 3, 3);
+        top: 20px;
+        font-size: 8vh;
+        margin-left: 10px;
+        display: flex;
+        position: absolute;
+        justify-content: right;
+        font-family: Arial, Helvetica, sans-serif;
+
+       }
+
+       #pesquisar:hover{
+
+        box-shadow:  2px 0px 10px 2px #5fa124;
+
+       }
+
+       #pesquisar:active{
+
+        background-color: #399c0f;
+
+       }
+       
+
+  
+    </style>
+</head>
+<body>
+
+    <main>       
+        <h1 class="ende">Pesquise o seu endereço</h1> 
+
+        <article>
+            <form>
+                <input type="number" id="cep" name="cep" placeholder="Informe Seu CEP">
+                <span id="pesquisar">Pesquisar CEP</span>
+            </form>
+
+            
+                <table>
+                    <tr>
+                        <td><srong>Endereço:  </srong></td>
+                        <td id="logradouro"></td>
+                    </tr>
+
+                    <tr>
+                        <td><srong>Bairro:  </srong></td>
+                        <td id="bairro"></td>
+                    </tr>
+
+                    <tr>
+                        <td><srong>Cidade:  </srong></td>
+                        <td id="localidade"></td>
+                    </tr>
+
+                    <tr>
+                        <td><srong>Estado:  </srong></td>
+                        <td id="uf"></td>
+                    </tr>
+                </table>
+            </article>
+    </main>
+
+<script src="./jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(
+
+        () => {
+            $('#pesquisar').click(
+
+                () => {
+                    const cepInformado = $('#cep').val();
+                    const urlAPI = "https://viacep.com.br/ws/" + cepInformado + "/json/";
+
+                    // fetch chama um arquivo
+                    fetch(urlAPI).then(
+
+                    (informacoes) => {
+
+                        informacoes.json().then(
+
+                        (enderecoViaCep) => {
+                            
+
+                            $('#logradouro').html(enderecoViaCep.logradouro);
+                            $('#bairro').html(enderecoViaCep.bairro);
+                            $('#localidade').html(enderecoViaCep.localidade);
+                            $('#uf').html(enderecoViaCep.uf);
+                            
+
+
+
+                        }
+                        );
+                    }
+                    );
+                }
+            );
+        }
+    );
+
+</script>
+</body>
+</html>
